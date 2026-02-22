@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Aprendo a Leer - Audio y Táctil</title>
+    <title>Aprendo a Leer - CORREGIDO</title>
     <style>
         /* ============================================
-           RESET TOTAL - TÁCTIL OPTIMIZADO
+           ESTILOS - MANTENEMOS LOS MISMOS
            ============================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
-            -webkit-user-select: none !important;
-            user-select: none !important;
-            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
             font-family: Arial, Helvetica, sans-serif !important;
             font-style: normal !important;
         }
@@ -36,9 +36,6 @@
             border: 5px solid #FFB347;
         }
 
-        /* ============================================
-           PERSONAJE
-           ============================================ */
         .header-juego {
             display: flex;
             align-items: center;
@@ -76,9 +73,6 @@
             align-items: center;
         }
 
-        /* ============================================
-           SELECTOR DE LETRAS
-           ============================================ */
         .selector-letras {
             background: #E8F0F5;
             border-radius: 40px;
@@ -120,9 +114,6 @@
             opacity: 0.8;
         }
 
-        /* ============================================
-           NIVELES
-           ============================================ */
         .niveles-container {
             display: flex;
             justify-content: space-around;
@@ -164,9 +155,6 @@
             color: white;
         }
 
-        /* ============================================
-           RECOMPENSAS
-           ============================================ */
         .recompensas {
             background: linear-gradient(145deg, #2C8F8F, #1B4F6E);
             padding: 15px;
@@ -213,9 +201,6 @@
             opacity: 1;
         }
 
-        /* ============================================
-           GRID DE JUEGOS
-           ============================================ */
         .juegos-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -241,9 +226,6 @@
             font-weight: bold;
         }
 
-        /* ============================================
-           SÍLABAS - UN SOLO TOQUE
-           ============================================ */
         .silabas-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -263,9 +245,6 @@
             border-bottom: 8px solid #1B4F6E;
         }
 
-        /* ============================================
-           PALABRAS
-           ============================================ */
         .palabras-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -302,9 +281,6 @@
             color: #1B4F6E;
         }
 
-        /* ============================================
-           JUEGO DE FORMAR - UN SOLO TOQUE
-           ============================================ */
         .juego-arrastrar {
             background: #E8F0F5;
             border-radius: 30px;
@@ -340,6 +316,12 @@
             border-radius: 25px;
             border: 5px solid white;
             border-bottom: 8px solid #1B4F6E;
+            pointer-events: auto;
+        }
+
+        .silaba-arrastrable.usada {
+            opacity: 0.5;
+            pointer-events: none;
         }
 
         .zona-soltar {
@@ -366,9 +348,6 @@
             border: 3px solid white;
         }
 
-        /* ============================================
-           BOTONES DE ACCIÓN
-           ============================================ */
         .botones-accion {
             display: flex;
             gap: 8px;
@@ -408,9 +387,6 @@
             color: #1B4F6E;
         }
 
-        /* ============================================
-           ACENTOS
-           ============================================ */
         .acentos-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -430,9 +406,6 @@
             border-bottom: 6px solid #0A2A3A;
         }
 
-        /* ============================================
-           ESCRITURA
-           ============================================ */
         .escritura-area {
             text-align: center;
         }
@@ -485,9 +458,6 @@
             color: #1B4F6E;
         }
 
-        /* ============================================
-           MENSAJES
-           ============================================ */
         .mensaje-juego {
             background: #FFB347;
             padding: 12px;
@@ -666,17 +636,69 @@
 
     <script>
         // ============================================
-        // AUDIO CON GOOGLE TRANSLATE (FUNCIONA SIEMPRE)
+        // AUDIO - VERSIÓN SIMPLIFICADA QUE FUNCIONA
         // ============================================
         function hablar(texto) {
+            console.log('Hablando:', texto);
+            
+            // Mostrar en mensaje
+            document.getElementById('mensajeSilabas').innerHTML = `🔊 ${texto}`;
+            
+            // Usar Web Speech API (la más compatible)
             try {
-                // Crear audio con Google Translate (FUNCIONA EN TODOS LADOS)
-                const audio = new Audio();
-                audio.src = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(texto)}&tl=es&client=tw-ob`;
-                audio.play().catch(e => console.log('Error audio:', e));
+                if (window.speechSynthesis) {
+                    // Cancelar cualquier audio anterior
+                    window.speechSynthesis.cancel();
+                    
+                    // Crear nuevo utterance
+                    const utterance = new SpeechSynthesisUtterance(texto);
+                    utterance.lang = 'es-ES';
+                    utterance.rate = 0.9;
+                    utterance.pitch = 1;
+                    utterance.volume = 1;
+                    
+                    // Seleccionar voz española si existe
+                    const voces = window.speechSynthesis.getVoices();
+                    const vozEspañola = voces.find(voz => voz.lang.includes('es'));
+                    if (vozEspañola) {
+                        utterance.voice = vozEspañola;
+                    }
+                    
+                    // Reproducir
+                    window.speechSynthesis.speak(utterance);
+                    
+                    console.log('Audio reproducido con Web Speech');
+                    return;
+                }
             } catch(e) {
-                console.log('Error al reproducir:', e);
+                console.log('Error en Web Speech:', e);
             }
+            
+            // Fallback: beep simple
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.frequency.value = 600;
+                gain.gain.value = 0.1;
+                
+                osc.start();
+                setTimeout(() => {
+                    osc.stop();
+                    audioCtx.close();
+                }, 200);
+            } catch(e) {
+                console.log('Beep error:', e);
+            }
+        }
+
+        // Precargar voces
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
         }
 
         // ============================================
@@ -716,36 +738,6 @@
                     { palabra: 'Puma', imagen: '🐆' },
                     { palabra: 'Pala', imagen: '🛠️' }
                 ]
-            },
-            'L': {
-                1: [
-                    { palabra: 'Lala', imagen: '🎵' },
-                    { palabra: 'Lelo', imagen: '😵' },
-                    { palabra: 'Lili', imagen: '🌸' }
-                ],
-                2: [
-                    { palabra: 'Lulú', imagen: '🐩' }
-                ],
-                3: [
-                    { palabra: 'Loma', imagen: '⛰️' },
-                    { palabra: 'Pala', imagen: '🛠️' },
-                    { palabra: 'Sala', imagen: '🏠' }
-                ]
-            },
-            'S': {
-                1: [
-                    { palabra: 'Sasa', imagen: '👧' },
-                    { palabra: 'Sese', imagen: '🗣️' },
-                    { palabra: 'Sisi', imagen: '✅' }
-                ],
-                2: [
-                    { palabra: 'Susú', imagen: '🤫' }
-                ],
-                3: [
-                    { palabra: 'Sima', imagen: '🏞️' },
-                    { palabra: 'Paso', imagen: '👣' },
-                    { palabra: 'Sopa', imagen: '🍲' }
-                ]
             }
         };
 
@@ -757,7 +749,9 @@
         let letrasDesbloqueadas = ['M'];
         let monedas = 5;
         let silabasSeleccionadas = [];
+        let silabasDisponibles = []; // Control de sílabas disponibles
         let palabraActualEscribir = 'Mama';
+        let bloqueoTemporal = false; // Evita múltiples selecciones
 
         // ============================================
         // FUNCIONES PRINCIPALES
@@ -844,7 +838,6 @@
 
         function aprenderSilaba(silaba) {
             hablar(silaba);
-            document.getElementById('mensajeSilabas').innerHTML = `🔊 ${silaba}`;
         }
 
         function seleccionarPalabra(palabra) {
@@ -852,6 +845,9 @@
             document.getElementById('mensajePersonaje').innerHTML = palabra;
         }
 
+        // ============================================
+        // JUEGO DE FORMAR - VERSIÓN CORREGIDA
+        // ============================================
         function reiniciarJuegoFormar() {
             let palabras = palabrasPorLetra[letraActual]?.[nivelActual] || [];
             if (palabras.length === 0) return;
@@ -859,48 +855,80 @@
             let palabra = palabras[Math.floor(Math.random() * palabras.length)];
             document.getElementById('palabraObjetivo').innerHTML = palabra.palabra;
             
-            // Crear sílabas a partir de la palabra
-            let silabas = [];
+            // Crear array de sílabas disponibles
+            silabasDisponibles = [];
+            
+            // Agregar las sílabas de la palabra
             for (let i = 0; i < palabra.palabra.length; i += 2) {
                 if (i + 1 <= palabra.palabra.length) {
-                    silabas.push(palabra.palabra.substring(i, i + 2).toLowerCase());
+                    silabasDisponibles.push(palabra.palabra.substring(i, i + 2).toLowerCase());
                 }
             }
             
-            // Añadir sílabas extra
-            while (silabas.length < 4) {
-                let extras = ['ma','me','mi','mo','mu'];
-                silabas.push(extras[Math.floor(Math.random() * extras.length)]);
+            // Agregar sílabas extra
+            let extras = ['ma','me','mi','mo','mu'];
+            while (silabasDisponibles.length < 4) {
+                let extra = extras[Math.floor(Math.random() * extras.length)];
+                silabasDisponibles.push(extra);
             }
             
             // Mezclar
-            silabas.sort(() => Math.random() - 0.5);
+            silabasDisponibles.sort(() => Math.random() - 0.5);
             
+            // Generar HTML
             let html = '';
-            silabas.forEach(s => {
-                html += `<div class="silaba-arrastrable" ontouchstart="seleccionarSilaba('${s}')">${s}</div>`;
+            silabasDisponibles.forEach((s, index) => {
+                html += `<div class="silaba-arrastrable" id="silaba-${index}" ontouchstart="seleccionarSilaba('${s}', ${index})">${s}</div>`;
             });
             document.getElementById('silabasArrastrables').innerHTML = html;
             
+            // Limpiar zona
             document.getElementById('zonaSoltar').innerHTML = '👆 Toca las sílabas';
             silabasSeleccionadas = [];
             document.getElementById('resultadoFormar').innerHTML = '';
+            bloqueoTemporal = false;
         }
 
-        function seleccionarSilaba(silaba) {
+        function seleccionarSilaba(silaba, index) {
+            // Evitar múltiples selecciones rápidas
+            if (bloqueoTemporal) return;
+            bloqueoTemporal = true;
+            
             let palabraObjetivo = document.getElementById('palabraObjetivo').innerHTML;
             let numSilabas = Math.ceil(palabraObjetivo.length / 2);
             
-            if (silabasSeleccionadas.length < numSilabas) {
-                silabasSeleccionadas.push(silaba);
-                let zona = document.getElementById('zonaSoltar');
-                if (zona.innerHTML === '👆 Toca las sílabas') zona.innerHTML = '';
-                
-                let span = document.createElement('span');
-                span.className = 'silaba-seleccionada';
-                span.innerHTML = silaba;
-                zona.appendChild(span);
+            // Verificar si ya seleccionamos suficientes
+            if (silabasSeleccionadas.length >= numSilabas) {
+                bloqueoTemporal = false;
+                return;
             }
+            
+            // Agregar a seleccionadas
+            silabasSeleccionadas.push(silaba);
+            
+            // Deshabilitar visualmente la sílaba
+            let elemento = document.getElementById(`silaba-${index}`);
+            if (elemento) {
+                elemento.classList.add('usada');
+                elemento.style.opacity = '0.5';
+                elemento.style.pointerEvents = 'none';
+            }
+            
+            // Mostrar en zona
+            let zona = document.getElementById('zonaSoltar');
+            if (zona.innerHTML === '👆 Toca las sílabas') {
+                zona.innerHTML = '';
+            }
+            
+            let span = document.createElement('span');
+            span.className = 'silaba-seleccionada';
+            span.innerHTML = silaba;
+            zona.appendChild(span);
+            
+            // Desbloquear después de un breve momento
+            setTimeout(() => {
+                bloqueoTemporal = false;
+            }, 200);
         }
 
         function agregarAcento(vocal) {
@@ -933,7 +961,16 @@
         function limpiarZonaFormar() {
             document.getElementById('zonaSoltar').innerHTML = '👆 Toca las sílabas';
             silabasSeleccionadas = [];
+            
+            // Reactivar todas las sílabas
+            document.querySelectorAll('.silaba-arrastrable').forEach(el => {
+                el.classList.remove('usada');
+                el.style.opacity = '1';
+                el.style.pointerEvents = 'auto';
+            });
+            
             document.getElementById('resultadoFormar').innerHTML = '';
+            bloqueoTemporal = false;
         }
 
         function verificarPalabraFormada() {
@@ -941,17 +978,20 @@
             let palabraFormada = silabasSeleccionadas.join('');
             
             if (palabraFormada.toLowerCase() === palabraObjetivo.toLowerCase()) {
-                document.getElementById('resultadoFormar').innerHTML = '🎉 ¡Bien! +2 monedas';
+                document.getElementById('resultadoFormar').innerHTML = '<div class="mensaje-exito">🎉 ¡Bien! +2 monedas</div>';
                 hablar('¡Muy bien!');
                 monedas += 2;
                 document.getElementById('contadorMonedas').innerHTML = monedas;
                 setTimeout(reiniciarJuegoFormar, 1500);
             } else {
-                document.getElementById('resultadoFormar').innerHTML = '🤔 Intenta otra vez';
+                document.getElementById('resultadoFormar').innerHTML = '<div class="mensaje-juego">🤔 Intenta otra vez</div>';
                 hablar('Casi');
             }
         }
 
+        // ============================================
+        // ESCRITURA
+        // ============================================
         function cambiarPalabraEscritura(palabra, imagen) {
             palabraActualEscribir = palabra;
             document.getElementById('imagenEscritura').innerHTML = imagen;
@@ -994,15 +1034,15 @@
             let escrito = document.getElementById('inputEscritura').value.trim();
             
             if (escrito === palabraActualEscribir) {
-                document.getElementById('resultadoEscritura').innerHTML = '⭐ ¡Perfecto! +3 monedas';
+                document.getElementById('resultadoEscritura').innerHTML = '<div class="mensaje-exito">⭐ ¡Perfecto! +3 monedas</div>';
                 hablar('¡Excelente!');
                 monedas += 3;
                 document.getElementById('contadorMonedas').innerHTML = monedas;
             } else if (normalizarTexto(escrito) === normalizarTexto(palabraActualEscribir)) {
-                document.getElementById('resultadoEscritura').innerHTML = '👍 Revisa la tilde';
+                document.getElementById('resultadoEscritura').innerHTML = '<div class="mensaje-juego">👍 Revisa la tilde</div>';
                 hablar('Revisa la tilde');
             } else {
-                document.getElementById('resultadoEscritura').innerHTML = '✏️ Sigue practicando';
+                document.getElementById('resultadoEscritura').innerHTML = '<div class="mensaje-juego">✏️ Sigue practicando</div>';
                 hablar('Intenta de nuevo');
             }
         }
@@ -1013,6 +1053,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             cargarTodo();
             document.getElementById('contadorMonedas').innerHTML = monedas;
+            
+            // Precargar voces
+            if (window.speechSynthesis) {
+                window.speechSynthesis.getVoices();
+            }
         });
     </script>
 </body>
