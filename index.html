@@ -3,24 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Aprendo a Leer - Todas las Letras</title>
+    <title>Aprendo a Leer - Versión Tablet</title>
     <style>
         /* ============================================
-           ESTILOS GENERALES
+           RESET TOTAL - SIN CURSIVAS - TÁCTIL OPTIMIZADO
            ============================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: 'Segoe UI', 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-touch-callout: none !important;
+            -webkit-user-select: none !important;
+            user-select: none !important;
+            touch-action: manipulation !important;
+            font-family: 'Arial', 'Helvetica', 'Roboto', sans-serif !important;
+            font-style: normal !important;
+            font-weight: normal !important;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* FORZAR ARIAL EN ABSOLUTAMENTE TODOS LOS ELEMENTOS */
+        body, div, span, button, input, textarea, p, h1, h2, h3, h4, h5, h6,
+        .mensaje-personaje, .juego-titulo, .texto-palabra, .silaba-boton, 
+        .palabra-juego, .letra-boton, .nivel-texto, .mensaje-juego, .footer,
+        .boton-grande, .boton-reinicio, .boton-acento, .miniatura-texto {
+            font-family: 'Arial', 'Helvetica', 'Roboto', sans-serif !important;
+            font-style: normal !important;
         }
 
         body {
             background: linear-gradient(145deg, #1B4F6E, #2C8F8F);
             min-height: 100vh;
-            padding: 12px;
-            touch-action: manipulation;
+            padding: 10px;
         }
 
         .container {
@@ -33,11 +50,14 @@
             border: 5px solid #FFB347;
         }
 
+        /* ============================================
+           CABECERA
+           ============================================ */
         .header-juego {
             display: flex;
             align-items: center;
             gap: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background: linear-gradient(145deg, #2C8F8F, #1B4F6E);
             padding: 20px;
             border-radius: 50px;
@@ -92,6 +112,9 @@
             align-items: center;
         }
 
+        /* ============================================
+           SELECTOR DE LETRAS
+           ============================================ */
         .selector-letras {
             background: #E8F0F5;
             border-radius: 40px;
@@ -113,16 +136,16 @@
         .letras-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
         }
 
         .letra-boton {
-            width: 90px;
-            height: 90px;
+            width: 85px;
+            height: 85px;
             background: #2C8F8F;
             color: white;
-            font-size: 3.5em;
+            font-size: 3.2em;
             font-weight: bold;
             display: flex;
             align-items: center;
@@ -131,8 +154,9 @@
             border: 4px solid white;
             border-bottom: 8px solid #1B4F6E;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.05s;
             opacity: 0.5;
+            touch-action: manipulation;
         }
 
         .letra-boton.activa {
@@ -140,7 +164,6 @@
             background: #FFB347;
             border-bottom-color: #C96F0F;
             transform: scale(1.05);
-            box-shadow: 0 0 20px #FFB347;
         }
 
         .letra-boton.desbloqueada {
@@ -152,12 +175,15 @@
             border-bottom-width: 4px;
         }
 
+        /* ============================================
+           NIVELES
+           ============================================ */
         .niveles-container {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             background: #E8F0F5;
-            padding: 20px;
+            padding: 15px;
             border-radius: 50px;
             border: 4px solid #1B4F6E;
             flex-wrap: wrap;
@@ -168,29 +194,28 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             cursor: pointer;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 40px;
-            transition: all 0.3s;
+            transition: all 0.05s;
             opacity: 0.6;
-            min-width: 130px;
+            min-width: 120px;
         }
 
         .nivel.activo {
             opacity: 1;
             background: #2C8F8F;
-            transform: scale(1.05);
             border: 4px solid white;
             box-shadow: 0 5px 0 #1B4F6E;
         }
 
         .nivel-icono {
-            font-size: 3em;
+            font-size: 2.8em;
         }
 
         .nivel-texto {
-            font-size: 1.6em;
+            font-size: 1.5em;
             font-weight: bold;
             color: #1B4F6E;
         }
@@ -199,46 +224,49 @@
             color: white;
         }
 
+        /* ============================================
+           RECOMPENSAS
+           ============================================ */
         .recompensas {
             background: linear-gradient(145deg, #2C8F8F, #1B4F6E);
-            padding: 20px;
+            padding: 15px;
             border-radius: 40px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 20px;
             border: 4px solid #FFB347;
             flex-wrap: wrap;
         }
 
         .monedas {
             background: #FFB347;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border-radius: 40px;
-            font-size: 2.2em;
+            font-size: 2em;
             font-weight: bold;
             color: #1B4F6E;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             border: 4px solid white;
-            min-width: 150px;
+            min-width: 140px;
             justify-content: center;
         }
 
         .stickers {
             flex: 1;
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
             justify-content: center;
         }
 
         .sticker {
-            font-size: 2.8em;
+            font-size: 2.5em;
             background: white;
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -250,53 +278,54 @@
 
         .sticker.desbloqueado {
             opacity: 1;
-            transform: scale(1.1);
             border-color: #2C8F8F;
-            background: #E8F0F5;
         }
 
+        /* ============================================
+           GRID DE JUEGOS
+           ============================================ */
         .juegos-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
 
         .juego-tarjeta {
             background: white;
-            border-radius: 35px;
-            padding: 20px;
+            border-radius: 30px;
+            padding: 15px;
             border: 5px solid #2C8F8F;
-            box-shadow: 0 10px 0 #1B4F6E;
+            box-shadow: 0 8px 0 #1B4F6E;
         }
 
         .juego-titulo {
             background: #1B4F6E;
             color: white;
-            padding: 15px 25px;
+            padding: 12px 20px;
             border-radius: 40px;
             display: inline-block;
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 1.8em;
+            margin-bottom: 15px;
             border: 4px solid #FFB347;
             font-weight: bold;
         }
 
         /* ============================================
-           BOTONES DE REINICIO (NUEVOS)
+           BOTONES DE ACCIÓN
            ============================================ */
         .botones-accion {
             display: flex;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 8px;
+            margin: 12px 0;
         }
 
         .boton-reinicio {
             background: #FF6B6B;
             color: white;
             border: none;
-            padding: 15px 25px;
-            border-radius: 40px;
-            font-size: 1.8em;
+            padding: 12px 20px;
+            border-radius: 35px;
+            font-size: 1.6em;
             font-weight: bold;
             border-bottom: 6px solid #C44545;
             cursor: pointer;
@@ -304,7 +333,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             flex: 1;
         }
 
@@ -317,9 +346,9 @@
             background: #FFB347;
             color: #1B4F6E;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 15px;
             border-radius: 30px;
-            font-size: 1.4em;
+            font-size: 1.3em;
             font-weight: bold;
             border-bottom: 4px solid #C96F0F;
             cursor: pointer;
@@ -327,7 +356,7 @@
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            margin-left: 10px;
+            margin-left: 8px;
         }
 
         .boton-reinicio-pequeno:active {
@@ -335,25 +364,27 @@
             border-bottom-width: 2px;
         }
 
+        /* ============================================
+           SÍLABAS
+           ============================================ */
         .silabas-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 20px 0;
+            gap: 10px;
+            margin: 15px 0;
         }
 
         .silaba-boton {
             background: #2C8F8F;
             color: white;
-            font-size: 2.8em;
+            font-size: 2.5em;
             font-weight: bold;
-            padding: 20px 0;
+            padding: 18px 0;
             text-align: center;
-            border-radius: 35px;
+            border-radius: 30px;
             border: 5px solid white;
             border-bottom: 8px solid #1B4F6E;
             cursor: pointer;
-            transition: all 0.1s;
             touch-action: manipulation;
         }
 
@@ -364,123 +395,121 @@
 
         .silaba-boton.desactivada {
             opacity: 0.3;
-            cursor: not-allowed;
             pointer-events: none;
         }
 
+        /* ============================================
+           PALABRAS
+           ============================================ */
         .palabras-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            max-height: 450px;
+            gap: 10px;
+            max-height: 400px;
             overflow-y: auto;
-            padding: 8px;
+            padding: 5px;
         }
 
         .palabra-juego {
             background: linear-gradient(145deg, #F5F9FF, #E8F0F5);
-            border-radius: 28px;
-            padding: 18px;
+            border-radius: 25px;
+            padding: 15px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             border: 4px solid #2C8F8F;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .palabra-juego:active {
-            transform: scale(0.98);
             background: #FFEAA7;
-            border-color: #FFB347;
         }
 
         .imagen-palabra {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: #FFB347;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3em;
+            font-size: 2.8em;
             border: 4px solid white;
         }
 
         .texto-palabra {
-            font-size: 2.2em;
+            font-size: 2em;
             font-weight: bold;
             color: #1B4F6E;
         }
 
         .texto-palabra-con-acento {
-            font-size: 2.2em;
+            font-size: 2em;
             font-weight: bold;
             color: #FFB347;
-            text-decoration: underline wavy #2C8F8F;
         }
 
         .silabas-mini {
             display: flex;
-            gap: 5px;
-            margin-top: 5px;
+            gap: 4px;
+            margin-top: 4px;
             flex-wrap: wrap;
         }
 
         .silaba-mini {
             background: #2C8F8F;
             color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 1.1em;
             border: 2px solid white;
         }
 
         .silaba-mini-acento {
             background: #FFB347;
             color: #1B4F6E;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 1.2em;
-            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 1.1em;
             border: 2px solid white;
         }
 
+        /* ============================================
+           JUEGO DE FORMAR
+           ============================================ */
         .juego-arrastrar {
             background: #E8F0F5;
-            border-radius: 35px;
-            padding: 20px;
+            border-radius: 30px;
+            padding: 15px;
         }
 
         .palabra-objetivo {
-            font-size: 3.5em;
+            font-size: 3.2em;
             text-align: center;
             color: #1B4F6E;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: #FFB347;
-            padding: 20px;
-            border-radius: 50px;
+            padding: 15px;
+            border-radius: 45px;
             border: 5px solid white;
             font-weight: bold;
-            word-break: break-word;
         }
 
         .silabas-arrastrables {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin: 20px 0;
+            gap: 10px;
+            margin: 15px 0;
         }
 
         .silaba-arrastrable {
             background: #2C8F8F;
             color: white;
-            font-size: 2.8em;
+            font-size: 2.5em;
             font-weight: bold;
-            padding: 20px;
+            padding: 18px;
             text-align: center;
-            border-radius: 30px;
+            border-radius: 25px;
             border: 5px solid white;
             border-bottom: 8px solid #1B4F6E;
             cursor: pointer;
@@ -495,33 +524,36 @@
         .zona-soltar {
             background: white;
             border: 6px dashed #2C8F8F;
-            border-radius: 40px;
-            padding: 30px;
-            min-height: 140px;
+            border-radius: 35px;
+            padding: 25px;
+            min-height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            font-size: 2.5em;
-            margin: 20px 0;
+            gap: 10px;
+            font-size: 2.2em;
+            margin: 15px 0;
             flex-wrap: wrap;
         }
 
+        /* ============================================
+           ACENTOS
+           ============================================ */
         .acentos-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin: 20px 0;
+            gap: 8px;
+            margin: 15px 0;
         }
 
         .boton-acento {
             background: #1B4F6E;
             color: white;
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
-            padding: 15px 5px;
+            padding: 12px 5px;
             text-align: center;
-            border-radius: 35px;
+            border-radius: 30px;
             border: 4px solid white;
             border-bottom: 6px solid #0A2A3A;
             cursor: pointer;
@@ -533,13 +565,16 @@
             border-bottom-width: 3px;
         }
 
+        /* ============================================
+           BOTONES GRANDES
+           ============================================ */
         .boton-grande {
             background: #2C8F8F;
             color: white;
             border: none;
-            padding: 20px;
-            border-radius: 45px;
-            font-size: 2.2em;
+            padding: 18px;
+            border-radius: 40px;
+            font-size: 2em;
             font-weight: bold;
             width: 100%;
             border-bottom: 8px solid #1B4F6E;
@@ -559,75 +594,80 @@
             color: #1B4F6E;
         }
 
+        /* ============================================
+           ESCRITURA
+           ============================================ */
         .escritura-area {
             text-align: center;
         }
 
         .imagen-escritura {
-            font-size: 7em;
+            font-size: 6em;
             background: #FFB347;
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             border: 6px solid #2C8F8F;
             cursor: pointer;
         }
 
         .input-escritura {
             width: 100%;
-            padding: 20px;
-            font-size: 2.8em;
+            padding: 18px;
+            font-size: 2.5em;
             text-align: center;
             border: 5px solid #2C8F8F;
-            border-radius: 40px;
-            margin-bottom: 20px;
+            border-radius: 35px;
+            margin-bottom: 15px;
             background: #F5F9FF;
+            font-family: 'Arial', sans-serif !important;
         }
 
         .miniaturas-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin: 20px 0;
+            gap: 8px;
+            margin: 15px 0;
         }
 
         .miniatura {
             background: #E8F0F5;
-            border-radius: 25px;
-            padding: 12px;
+            border-radius: 20px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             border: 4px solid #2C8F8F;
-            transition: all 0.2s;
         }
 
         .miniatura:active {
-            transform: scale(0.95);
             background: #FFB347;
         }
 
         .miniatura-imagen {
-            font-size: 2.8em;
+            font-size: 2.5em;
         }
 
         .miniatura-texto {
-            font-size: 1.6em;
+            font-size: 1.4em;
             font-weight: bold;
             color: #1B4F6E;
-            margin-top: 5px;
+            margin-top: 4px;
         }
 
+        /* ============================================
+           MENSAJES
+           ============================================ */
         .mensaje-juego {
             background: #FFB347;
-            padding: 15px;
-            border-radius: 35px;
-            font-size: 1.8em;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 1.6em;
             text-align: center;
-            margin: 12px 0;
+            margin: 10px 0;
             font-weight: bold;
             border: 4px solid white;
             color: #1B4F6E;
@@ -636,39 +676,45 @@
         .mensaje-exito {
             background: #2C8F8F;
             color: white;
-            padding: 15px;
-            border-radius: 35px;
-            font-size: 1.8em;
+            padding: 12px;
+            border-radius: 30px;
+            font-size: 1.6em;
             text-align: center;
-            margin: 12px 0;
+            margin: 10px 0;
             font-weight: bold;
             border: 4px solid #FFB347;
         }
 
         .footer {
             text-align: center;
-            margin-top: 25px;
-            font-size: 1.8em;
+            margin-top: 20px;
+            font-size: 1.6em;
             color: white;
             text-shadow: 2px 2px 0 #1B4F6E;
             font-weight: bold;
         }
 
+        /* ============================================
+           SCROLL
+           ============================================ */
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 8px;
         }
 
         ::-webkit-scrollbar-track {
             background: #E8F0F5;
-            border-radius: 20px;
+            border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb {
             background: #2C8F8F;
-            border-radius: 20px;
+            border-radius: 10px;
             border: 2px solid white;
         }
 
+        /* ============================================
+           MEDIA QUERIES
+           ============================================ */
         @media (max-width: 900px) {
             .juegos-grid {
                 grid-template-columns: 1fr;
@@ -680,18 +726,13 @@
             }
             
             .mensaje-personaje {
-                font-size: 1.6em;
-                min-height: 80px;
+                font-size: 1.5em;
             }
             
             .letra-boton {
                 width: 70px;
                 height: 70px;
                 font-size: 2.8em;
-            }
-            
-            .silabas-grid {
-                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -706,46 +747,43 @@
                     <div class="ojo"></div>
                 </div>
                 <div class="boca"></div>
-                <div style="color: white; font-size: 1.6em; margin-top: 10px;">ABC</div>
+                <div style="color: white; font-size: 1.5em; margin-top: 8px;">ABC</div>
             </div>
             <div class="mensaje-personaje" id="mensajePersonaje">
-                ¡Hola! Elige una letra para aprender
+                ¡Hola! Elige una letra
             </div>
         </div>
 
         <!-- SELECTOR DE LETRAS -->
         <div class="selector-letras">
             <div class="selector-titulo">
-                <span>🔤</span> ¿Qué letra quieres aprender?
+                <span>🔤</span> Letras
             </div>
             <div class="letras-grid" id="selectorLetras">
-                <div class="letra-boton activa" data-letra="M" onclick="seleccionarLetra('M')">M</div>
-                <div class="letra-boton" data-letra="P" onclick="seleccionarLetra('P')">P</div>
-                <div class="letra-boton" data-letra="L" onclick="seleccionarLetra('L')">L</div>
-                <div class="letra-boton" data-letra="S" onclick="seleccionarLetra('S')">S</div>
-                <div class="letra-boton" data-letra="T" onclick="seleccionarLetra('T')">T</div>
-                <div class="letra-boton" data-letra="N" onclick="seleccionarLetra('N')">N</div>
-                <div class="letra-boton" data-letra="D" onclick="seleccionarLetra('D')">D</div>
-                <div class="letra-boton" data-letra="C" onclick="seleccionarLetra('C')">C</div>
-                <div class="letra-boton" data-letra="R" onclick="seleccionarLetra('R')">R</div>
-                <div class="letra-boton" data-letra="B" onclick="seleccionarLetra('B')">B</div>
+                <div class="letra-boton activa" data-letra="M" ontouchstart="seleccionarLetra('M')" onclick="seleccionarLetra('M')">M</div>
+                <div class="letra-boton" data-letra="P" ontouchstart="seleccionarLetra('P')" onclick="seleccionarLetra('P')">P</div>
+                <div class="letra-boton" data-letra="L" ontouchstart="seleccionarLetra('L')" onclick="seleccionarLetra('L')">L</div>
+                <div class="letra-boton" data-letra="S" ontouchstart="seleccionarLetra('S')" onclick="seleccionarLetra('S')">S</div>
+                <div class="letra-boton" data-letra="T" ontouchstart="seleccionarLetra('T')" onclick="seleccionarLetra('T')">T</div>
+                <div class="letra-boton" data-letra="N" ontouchstart="seleccionarLetra('N')" onclick="seleccionarLetra('N')">N</div>
+                <div class="letra-boton" data-letra="D" ontouchstart="seleccionarLetra('D')" onclick="seleccionarLetra('D')">D</div>
+                <div class="letra-boton" data-letra="C" ontouchstart="seleccionarLetra('C')" onclick="seleccionarLetra('C')">C</div>
+                <div class="letra-boton" data-letra="R" ontouchstart="seleccionarLetra('R')" onclick="seleccionarLetra('R')">R</div>
+                <div class="letra-boton" data-letra="B" ontouchstart="seleccionarLetra('B')" onclick="seleccionarLetra('B')">B</div>
             </div>
-            <p style="text-align: center; margin-top: 15px; font-size: 1.4em; color: #1B4F6E;">
-                ⭐ Comienza con M, gana monedas y desbloquea las demás ⭐
-            </p>
         </div>
 
-        <!-- SISTEMA DE NIVELES -->
-        <div class="niveles-container" id="nivelesContainer">
-            <div class="nivel activo" data-nivel="1" onclick="cambiarNivel(1)">
+        <!-- NIVELES -->
+        <div class="niveles-container">
+            <div class="nivel activo" data-nivel="1" ontouchstart="cambiarNivel(1)" onclick="cambiarNivel(1)">
                 <span class="nivel-icono">🥚</span>
                 <span class="nivel-texto">Nivel 1</span>
             </div>
-            <div class="nivel" data-nivel="2" onclick="cambiarNivel(2)">
+            <div class="nivel" data-nivel="2" ontouchstart="cambiarNivel(2)" onclick="cambiarNivel(2)">
                 <span class="nivel-icono">🐣</span>
                 <span class="nivel-texto">Nivel 2</span>
             </div>
-            <div class="nivel" data-nivel="3" onclick="cambiarNivel(3)">
+            <div class="nivel" data-nivel="3" ontouchstart="cambiarNivel(3)" onclick="cambiarNivel(3)">
                 <span class="nivel-icono">🦜</span>
                 <span class="nivel-texto">Nivel 3</span>
             </div>
@@ -766,76 +804,56 @@
             </div>
         </div>
 
-        <!-- JUEGOS PRINCIPALES -->
+        <!-- JUEGOS -->
         <div class="juegos-grid">
-            <!-- JUEGO 1: APRENDER SÍLABAS -->
+            <!-- JUEGO 1: SÍLABAS -->
             <div class="juego-tarjeta">
                 <div class="juego-titulo">
-                    🔊 1. Sílabas
-                    <span class="boton-reinicio-pequeno" onclick="reiniciarSilabas()">
-                        🔄 Reiniciar
-                    </span>
+                    🔊 Sílabas
+                    <span class="boton-reinicio-pequeno" ontouchstart="reiniciarSilabas()" onclick="reiniciarSilabas()">🔄</span>
                 </div>
-                <div class="silabas-grid" id="silabasGrid">
-                    <!-- Se llena con JS -->
-                </div>
-                <div class="mensaje-juego" id="mensajeSilabas">
-                    Elige una letra para ver sus sílabas
-                </div>
+                <div class="silabas-grid" id="silabasGrid"></div>
+                <div class="mensaje-juego" id="mensajeSilabas">Toca una sílaba</div>
             </div>
 
             <!-- JUEGO 2: PALABRAS -->
             <div class="juego-tarjeta">
                 <div class="juego-titulo">
-                    📖 2. Palabras
-                    <span class="boton-reinicio-pequeno" onclick="reiniciarPalabras()">
-                        🔄 Reiniciar
-                    </span>
+                    📖 Palabras
+                    <span class="boton-reinicio-pequeno" ontouchstart="reiniciarPalabras()" onclick="reiniciarPalabras()">🔄</span>
                 </div>
-                <div class="palabras-grid" id="palabrasJuego">
-                    <!-- Se llena con JS -->
-                </div>
+                <div class="palabras-grid" id="palabrasJuego"></div>
             </div>
 
-            <!-- JUEGO 3: FORMAR PALABRAS -->
+            <!-- JUEGO 3: FORMAR -->
             <div class="juego-tarjeta">
                 <div class="juego-titulo">
-                    🧩 3. Formar
-                    <span class="boton-reinicio-pequeno" onclick="reiniciarJuegoFormar()">
-                        🔄 Reiniciar
-                    </span>
+                    🧩 Formar
+                    <span class="boton-reinicio-pequeno" ontouchstart="reiniciarJuegoFormar()" onclick="reiniciarJuegoFormar()">🔄</span>
                 </div>
                 <div class="juego-arrastrar">
-                    <div class="palabra-objetivo" id="palabraObjetivo">Mamá</div>
+                    <div class="palabra-objetivo" id="palabraObjetivo">Mama</div>
                     
-                    <div class="silabas-arrastrables" id="silabasArrastrables">
-                        <!-- Se llena con JS -->
-                    </div>
+                    <div class="silabas-arrastrables" id="silabasArrastrables"></div>
                     
-                    <div class="zona-soltar" id="zonaSoltar" onclick="agregarSilabaTactil(event)">
+                    <div class="zona-soltar" id="zonaSoltar" ontouchstart="agregarSilabaTactil(event)" onclick="agregarSilabaTactil(event)">
                         👆 Toca las sílabas
                     </div>
                     
                     <div class="acentos-container">
-                        <div class="boton-acento" onclick="agregarAcento('Á')">Á</div>
-                        <div class="boton-acento" onclick="agregarAcento('É')">É</div>
-                        <div class="boton-acento" onclick="agregarAcento('Í')">Í</div>
-                        <div class="boton-acento" onclick="agregarAcento('Ó')">Ó</div>
-                        <div class="boton-acento" onclick="agregarAcento('Ú')">Ú</div>
+                        <div class="boton-acento" ontouchstart="agregarAcento('Á')" onclick="agregarAcento('Á')">Á</div>
+                        <div class="boton-acento" ontouchstart="agregarAcento('É')" onclick="agregarAcento('É')">É</div>
+                        <div class="boton-acento" ontouchstart="agregarAcento('Í')" onclick="agregarAcento('Í')">Í</div>
+                        <div class="boton-acento" ontouchstart="agregarAcento('Ó')" onclick="agregarAcento('Ó')">Ó</div>
+                        <div class="boton-acento" ontouchstart="agregarAcento('Ú')" onclick="agregarAcento('Ú')">Ú</div>
                     </div>
                     
                     <div class="botones-accion">
-                        <button class="boton-reinicio" onclick="limpiarZonaFormar()">
-                            🧹 Limpiar
-                        </button>
-                        <button class="boton-reinicio" onclick="reiniciarJuegoFormar()">
-                            🔄 Nueva palabra
-                        </button>
+                        <button class="boton-reinicio" ontouchstart="limpiarZonaFormar()" onclick="limpiarZonaFormar()">🧹 Limpiar</button>
+                        <button class="boton-reinicio" ontouchstart="reiniciarJuegoFormar()" onclick="reiniciarJuegoFormar()">🔄 Nueva</button>
                     </div>
                     
-                    <button class="boton-grande verificar" onclick="verificarPalabraFormada()">
-                        ✅ Verificar
-                    </button>
+                    <button class="boton-grande verificar" ontouchstart="verificarPalabraFormada()" onclick="verificarPalabraFormada()">✅ Verificar</button>
                     
                     <div id="resultadoFormar" class="mensaje-juego"></div>
                 </div>
@@ -844,57 +862,43 @@
             <!-- JUEGO 4: ESCRIBIR -->
             <div class="juego-tarjeta">
                 <div class="juego-titulo">
-                    ✏️ 4. Escribir
-                    <span class="boton-reinicio-pequeno" onclick="reiniciarEscritura()">
-                        🔄 Reiniciar
-                    </span>
+                    ✏️ Escribir
+                    <span class="boton-reinicio-pequeno" ontouchstart="reiniciarEscritura()" onclick="reiniciarEscritura()">🔄</span>
                 </div>
                 <div class="escritura-area">
-                    <div class="imagen-escritura" id="imagenEscritura" onclick="cambiarPalabraEscrituraAleatoria()">
-                        👩
-                    </div>
+                    <div class="imagen-escritura" id="imagenEscritura" ontouchstart="cambiarPalabraEscrituraAleatoria()" onclick="cambiarPalabraEscrituraAleatoria()">👩</div>
                     
                     <input type="text" class="input-escritura" id="inputEscritura" 
                            placeholder="Escribe" maxlength="6" inputmode="text" autocomplete="off">
                     
                     <div class="acentos-container">
-                        <div class="boton-acento" onclick="agregarAcentoEscritura('Á')">Á</div>
-                        <div class="boton-acento" onclick="agregarAcentoEscritura('É')">É</div>
-                        <div class="boton-acento" onclick="agregarAcentoEscritura('Í')">Í</div>
-                        <div class="boton-acento" onclick="agregarAcentoEscritura('Ó')">Ó</div>
-                        <div class="boton-acento" onclick="agregarAcentoEscritura('Ú')">Ú</div>
+                        <div class="boton-acento" ontouchstart="agregarAcentoEscritura('Á')" onclick="agregarAcentoEscritura('Á')">Á</div>
+                        <div class="boton-acento" ontouchstart="agregarAcentoEscritura('É')" onclick="agregarAcentoEscritura('É')">É</div>
+                        <div class="boton-acento" ontouchstart="agregarAcentoEscritura('Í')" onclick="agregarAcentoEscritura('Í')">Í</div>
+                        <div class="boton-acento" ontouchstart="agregarAcentoEscritura('Ó')" onclick="agregarAcentoEscritura('Ó')">Ó</div>
+                        <div class="boton-acento" ontouchstart="agregarAcentoEscritura('Ú')" onclick="agregarAcentoEscritura('Ú')">Ú</div>
                     </div>
                     
-                    <div class="miniaturas-grid" id="miniaturasEscritura">
-                        <!-- Se llena con JS -->
-                    </div>
+                    <div class="miniaturas-grid" id="miniaturasEscritura"></div>
                     
                     <div class="botones-accion">
-                        <button class="boton-reinicio" onclick="limpiarInputEscritura()">
-                            🧹 Limpiar
-                        </button>
-                        <button class="boton-reinicio" onclick="reiniciarEscritura()">
-                            🔄 Nueva palabra
-                        </button>
+                        <button class="boton-reinicio" ontouchstart="limpiarInputEscritura()" onclick="limpiarInputEscritura()">🧹 Limpiar</button>
+                        <button class="boton-reinicio" ontouchstart="reiniciarEscritura()" onclick="reiniciarEscritura()">🔄 Nueva</button>
                     </div>
                     
-                    <button class="boton-grande" onclick="verificarEscritura()">
-                        🔍 Revisar
-                    </button>
+                    <button class="boton-grande" ontouchstart="verificarEscritura()" onclick="verificarEscritura()">🔍 Revisar</button>
                     
                     <div id="resultadoEscritura" class="mensaje-juego"></div>
                 </div>
             </div>
         </div>
 
-        <div class="footer">
-            ⭐ M - P - L - S - T - N - D - C - R - B ⭐
-        </div>
+        <div class="footer">⭐ M - P - L - S - T - N - D - C - R - B ⭐</div>
     </div>
 
     <script>
         // ============================================
-        // BASE DE DATOS DE PALABRAS POR LETRA Y NIVEL
+        // DATOS DE PALABRAS (COMPLETO)
         // ============================================
         const palabrasPorLetra = {
             'M': {
@@ -908,64 +912,49 @@
                 2: [
                     { palabra: 'Mamá', imagen: '👩‍👧', silabas: ['Ma', 'má'], tieneAcento: true, acentoEn: 1 },
                     { palabra: 'Memá', imagen: '💝', silabas: ['Me', 'má'], tieneAcento: true, acentoEn: 1 },
-                    { palabra: 'Mimá', imagen: '💕', silabas: ['Mi', 'má'], tieneAcento: true, acentoEn: 1 },
-                    { palabra: 'Mamó', imagen: '👵', silabas: ['Ma', 'mó'], tieneAcento: true, acentoEn: 1 }
+                    { palabra: 'Mimá', imagen: '💕', silabas: ['Mi', 'má'], tieneAcento: true, acentoEn: 1 }
                 ],
                 3: [
                     { palabra: 'Mapa', imagen: '🗺️', silabas: ['Ma', 'pa'], tieneAcento: false },
                     { palabra: 'Puma', imagen: '🐆', silabas: ['Pu', 'ma'], tieneAcento: false },
-                    { palabra: 'Loma', imagen: '⛰️', silabas: ['Lo', 'ma'], tieneAcento: false },
-                    { palabra: 'Sima', imagen: '🏞️', silabas: ['Si', 'ma'], tieneAcento: false },
-                    { palabra: 'Toma', imagen: '📸', silabas: ['To', 'ma'], tieneAcento: false }
+                    { palabra: 'Loma', imagen: '⛰️', silabas: ['Lo', 'ma'], tieneAcento: false }
                 ]
             },
             'P': {
                 1: [
                     { palabra: 'Papa', imagen: '🥔', silabas: ['Pa', 'pa'], tieneAcento: false },
                     { palabra: 'Pepe', imagen: '👨', silabas: ['Pe', 'pe'], tieneAcento: false },
-                    { palabra: 'Pipa', imagen: '🚬', silabas: ['Pi', 'pa'], tieneAcento: false },
-                    { palabra: 'Pipo', imagen: '🎮', silabas: ['Pi', 'po'], tieneAcento: false },
-                    { palabra: 'Popo', imagen: '💩', silabas: ['Po', 'po'], tieneAcento: false }
+                    { palabra: 'Pipa', imagen: '🚬', silabas: ['Pi', 'pa'], tieneAcento: false }
                 ],
                 2: [
-                    { palabra: 'Papá', imagen: '👨‍👧', silabas: ['Pa', 'pá'], tieneAcento: true, acentoEn: 1 },
-                    { palabra: 'Pipá', imagen: '🎯', silabas: ['Pi', 'pá'], tieneAcento: true, acentoEn: 1 },
-                    { palabra: 'Popó', imagen: '🚗', silabas: ['Po', 'pó'], tieneAcento: true, acentoEn: 1 }
+                    { palabra: 'Papá', imagen: '👨‍👧', silabas: ['Pa', 'pá'], tieneAcento: true, acentoEn: 1 }
                 ],
                 3: [
                     { palabra: 'Mapa', imagen: '🗺️', silabas: ['Ma', 'pa'], tieneAcento: false },
                     { palabra: 'Puma', imagen: '🐆', silabas: ['Pu', 'ma'], tieneAcento: false },
-                    { palabra: 'Pala', imagen: '🛠️', silabas: ['Pa', 'la'], tieneAcento: false },
-                    { palabra: 'Paso', imagen: '👣', silabas: ['Pa', 'so'], tieneAcento: false },
-                    { palabra: 'Pato', imagen: '🦆', silabas: ['Pa', 'to'], tieneAcento: false }
+                    { palabra: 'Pala', imagen: '🛠️', silabas: ['Pa', 'la'], tieneAcento: false }
                 ]
             },
             'L': {
                 1: [
                     { palabra: 'Lala', imagen: '🎵', silabas: ['La', 'la'], tieneAcento: false },
                     { palabra: 'Lelo', imagen: '😵', silabas: ['Le', 'lo'], tieneAcento: false },
-                    { palabra: 'Lili', imagen: '🌸', silabas: ['Li', 'li'], tieneAcento: false },
-                    { palabra: 'Lolo', imagen: '🧸', silabas: ['Lo', 'lo'], tieneAcento: false },
-                    { palabra: 'Lulu', imagen: '🐶', silabas: ['Lu', 'lu'], tieneAcento: false }
+                    { palabra: 'Lili', imagen: '🌸', silabas: ['Li', 'li'], tieneAcento: false }
                 ],
                 2: [
-                    { palabra: 'Lulú', imagen: '🐩', silabas: ['Lu', 'lú'], tieneAcento: true, acentoEn: 1 },
-                    { palabra: 'Lalá', imagen: '🎤', silabas: ['La', 'lá'], tieneAcento: true, acentoEn: 1 }
+                    { palabra: 'Lulú', imagen: '🐩', silabas: ['Lu', 'lú'], tieneAcento: true, acentoEn: 1 }
                 ],
                 3: [
                     { palabra: 'Loma', imagen: '⛰️', silabas: ['Lo', 'ma'], tieneAcento: false },
                     { palabra: 'Pala', imagen: '🛠️', silabas: ['Pa', 'la'], tieneAcento: false },
-                    { palabra: 'Sala', imagen: '🏠', silabas: ['Sa', 'la'], tieneAcento: false },
-                    { palabra: 'Tela', imagen: '🧵', silabas: ['Te', 'la'], tieneAcento: false }
+                    { palabra: 'Sala', imagen: '🏠', silabas: ['Sa', 'la'], tieneAcento: false }
                 ]
             },
             'S': {
                 1: [
                     { palabra: 'Sasa', imagen: '👧', silabas: ['Sa', 'sa'], tieneAcento: false },
                     { palabra: 'Sese', imagen: '🗣️', silabas: ['Se', 'se'], tieneAcento: false },
-                    { palabra: 'Sisi', imagen: '✅', silabas: ['Si', 'si'], tieneAcento: false },
-                    { palabra: 'Soso', imagen: '😐', silabas: ['So', 'so'], tieneAcento: false },
-                    { palabra: 'Susi', imagen: '🐭', silabas: ['Su', 'si'], tieneAcento: false }
+                    { palabra: 'Sisi', imagen: '✅', silabas: ['Si', 'si'], tieneAcento: false }
                 ],
                 2: [
                     { palabra: 'Susú', imagen: '🤫', silabas: ['Su', 'sú'], tieneAcento: true, acentoEn: 1 }
@@ -973,7 +962,6 @@
                 3: [
                     { palabra: 'Sima', imagen: '🏞️', silabas: ['Si', 'ma'], tieneAcento: false },
                     { palabra: 'Paso', imagen: '👣', silabas: ['Pa', 'so'], tieneAcento: false },
-                    { palabra: 'Sala', imagen: '🏠', silabas: ['Sa', 'la'], tieneAcento: false },
                     { palabra: 'Sopa', imagen: '🍲', silabas: ['So', 'pa'], tieneAcento: false }
                 ]
             },
@@ -981,9 +969,7 @@
                 1: [
                     { palabra: 'Tata', imagen: '👴', silabas: ['Ta', 'ta'], tieneAcento: false },
                     { palabra: 'Tete', imagen: '👶', silabas: ['Te', 'te'], tieneAcento: false },
-                    { palabra: 'Tito', imagen: '🐕', silabas: ['Ti', 'to'], tieneAcento: false },
-                    { palabra: 'Toto', imagen: '🚽', silabas: ['To', 'to'], tieneAcento: false },
-                    { palabra: 'Tutu', imagen: '🚂', silabas: ['Tu', 'tu'], tieneAcento: false }
+                    { palabra: 'Tito', imagen: '🐕', silabas: ['Ti', 'to'], tieneAcento: false }
                 ],
                 2: [
                     { palabra: 'Tatá', imagen: '👵', silabas: ['Ta', 'tá'], tieneAcento: true, acentoEn: 1 }
@@ -991,7 +977,6 @@
                 3: [
                     { palabra: 'Toma', imagen: '📸', silabas: ['To', 'ma'], tieneAcento: false },
                     { palabra: 'Pato', imagen: '🦆', silabas: ['Pa', 'to'], tieneAcento: false },
-                    { palabra: 'Tela', imagen: '🧵', silabas: ['Te', 'la'], tieneAcento: false },
                     { palabra: 'Tapa', imagen: '📕', silabas: ['Ta', 'pa'], tieneAcento: false }
                 ]
             },
@@ -999,27 +984,22 @@
                 1: [
                     { palabra: 'Nana', imagen: '👵', silabas: ['Na', 'na'], tieneAcento: false },
                     { palabra: 'Nene', imagen: '👶', silabas: ['Ne', 'ne'], tieneAcento: false },
-                    { palabra: 'Nini', imagen: '🤷', silabas: ['Ni', 'ni'], tieneAcento: false },
-                    { palabra: 'Nono', imagen: '👴', silabas: ['No', 'no'], tieneAcento: false },
-                    { palabra: 'Nunu', imagen: '🪆', silabas: ['Nu', 'nu'], tieneAcento: false }
+                    { palabra: 'Nini', imagen: '🤷', silabas: ['Ni', 'ni'], tieneAcento: false }
                 ],
                 2: [
                     { palabra: 'Naná', imagen: '🍼', silabas: ['Na', 'ná'], tieneAcento: true, acentoEn: 1 }
                 ],
                 3: [
                     { palabra: 'Nada', imagen: '🌊', silabas: ['Na', 'da'], tieneAcento: false },
-                    { palabra: 'Pana', imagen: '🧣', silabas: ['Pa', 'na'], tieneAcento: false },
                     { palabra: 'Luna', imagen: '🌙', silabas: ['Lu', 'na'], tieneAcento: false },
-                    { palabra: 'Sana', imagen: '🏥', silabas: ['Sa', 'na'], tieneAcento: false }
+                    { palabra: 'Pana', imagen: '🧣', silabas: ['Pa', 'na'], tieneAcento: false }
                 ]
             },
             'D': {
                 1: [
                     { palabra: 'Dada', imagen: '🎨', silabas: ['Da', 'da'], tieneAcento: false },
                     { palabra: 'Dedo', imagen: '👆', silabas: ['De', 'do'], tieneAcento: false },
-                    { palabra: 'Didi', imagen: '🎵', silabas: ['Di', 'di'], tieneAcento: false },
-                    { palabra: 'Dodo', imagen: '🦤', silabas: ['Do', 'do'], tieneAcento: false },
-                    { palabra: 'Dudu', imagen: '🚗', silabas: ['Du', 'du'], tieneAcento: false }
+                    { palabra: 'Didi', imagen: '🎵', silabas: ['Di', 'di'], tieneAcento: false }
                 ],
                 2: [
                     { palabra: 'Dadá', imagen: '🎭', silabas: ['Da', 'dá'], tieneAcento: true, acentoEn: 1 }
@@ -1027,7 +1007,6 @@
                 3: [
                     { palabra: 'Nada', imagen: '🌊', silabas: ['Na', 'da'], tieneAcento: false },
                     { palabra: 'Dama', imagen: '👸', silabas: ['Da', 'ma'], tieneAcento: false },
-                    { palabra: 'Dedo', imagen: '👆', silabas: ['De', 'do'], tieneAcento: false },
                     { palabra: 'Día', imagen: '☀️', silabas: ['Dí', 'a'], tieneAcento: true, acentoEn: 0 }
                 ]
             },
@@ -1042,7 +1021,6 @@
                 ],
                 3: [
                     { palabra: 'Cama', imagen: '🛏️', silabas: ['Ca', 'ma'], tieneAcento: false },
-                    { palabra: 'Paca', imagen: '📦', silabas: ['Pa', 'ca'], tieneAcento: false },
                     { palabra: 'Copa', imagen: '🏆', silabas: ['Co', 'pa'], tieneAcento: false },
                     { palabra: 'Cuna', imagen: '👶', silabas: ['Cu', 'na'], tieneAcento: false }
                 ]
@@ -1059,7 +1037,6 @@
                 3: [
                     { palabra: 'Rama', imagen: '🌿', silabas: ['Ra', 'ma'], tieneAcento: false },
                     { palabra: 'Pera', imagen: '🍐', silabas: ['Pe', 'ra'], tieneAcento: false },
-                    { palabra: 'Ropa', imagen: '👕', silabas: ['Ro', 'pa'], tieneAcento: false },
                     { palabra: 'Rosa', imagen: '🌹', silabas: ['Ro', 'sa'], tieneAcento: false }
                 ]
             },
@@ -1067,9 +1044,7 @@
                 1: [
                     { palabra: 'Baba', imagen: '💧', silabas: ['Ba', 'ba'], tieneAcento: false },
                     { palabra: 'Bebe', imagen: '🍼', silabas: ['Be', 'be'], tieneAcento: false },
-                    { palabra: 'Bibi', imagen: '📖', silabas: ['Bi', 'bi'], tieneAcento: false },
-                    { palabra: 'Bobo', imagen: '🤪', silabas: ['Bo', 'bo'], tieneAcento: false },
-                    { palabra: 'Bubu', imagen: '👻', silabas: ['Bu', 'bu'], tieneAcento: false }
+                    { palabra: 'Bibi', imagen: '📖', silabas: ['Bi', 'bi'], tieneAcento: false }
                 ],
                 2: [
                     { palabra: 'Babá', imagen: '🍰', silabas: ['Ba', 'bá'], tieneAcento: true, acentoEn: 1 },
@@ -1078,204 +1053,203 @@
                 3: [
                     { palabra: 'Bala', imagen: '🔫', silabas: ['Ba', 'la'], tieneAcento: false },
                     { palabra: 'Bota', imagen: '👢', silabas: ['Bo', 'ta'], tieneAcento: false },
-                    { palabra: 'Boca', imagen: '👄', silabas: ['Bo', 'ca'], tieneAcento: false },
-                    { palabra: 'Cabo', imagen: '📍', silabas: ['Ca', 'bo'], tieneAcento: false }
+                    { palabra: 'Boca', imagen: '👄', silabas: ['Bo', 'ca'], tieneAcento: false }
                 ]
             }
         };
 
-        // Estado de la aplicación
+        // ============================================
+        // VARIABLES GLOBALES
+        // ============================================
         let letraActual = 'M';
         let nivelActual = 1;
         let letrasDesbloqueadas = ['M'];
         let monedas = 5;
         let stickersDesbloqueados = [false, false, false, false, false];
         let silabasSeleccionadas = [];
-        let palabraActualGrabar = 'Mama';
         let palabraActualEscribir = 'Mama';
+        let speechUtterance = null;
 
         // ============================================
-        // FUNCIONES DE NORMALIZACIÓN
+        // VOZ MEJORADA PARA WEB
         // ============================================
-        function normalizarTexto(texto) {
-            return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-        }
-
-        function compararConTildes(texto1, texto2) {
-            if (texto1 === texto2) return true;
-            return normalizarTexto(texto1).toLowerCase() === normalizarTexto(texto2).toLowerCase();
-        }
-
-        // ============================================
-        // VOZ
-        // ============================================
-        function hablarClaro(texto) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(texto);
-                utterance.lang = 'es-ES';
-                utterance.rate = 0.45;
-                utterance.pitch = 1.2;
-                utterance.volume = 1;
-                
-                const voces = window.speechSynthesis.getVoices();
-                const vozEspañola = voces.find(voz => voz.lang === 'es-ES' || voz.lang === 'es-MX');
-                if (vozEspañola) utterance.voice = vozEspañola;
-                
-                window.speechSynthesis.speak(utterance);
+        function hablar(texto) {
+            try {
+                if (window.speechSynthesis) {
+                    window.speechSynthesis.cancel();
+                    
+                    const utterance = new SpeechSynthesisUtterance(texto);
+                    utterance.lang = 'es-ES';
+                    utterance.rate = 0.5;
+                    utterance.pitch = 1.2;
+                    utterance.volume = 1;
+                    
+                    window.speechSynthesis.speak(utterance);
+                }
+            } catch(e) {
+                console.log('Error de voz:', e);
             }
         }
 
         // ============================================
-        // SISTEMA DE LETRAS
+        // FUNCIONES PRINCIPALES
         // ============================================
         function seleccionarLetra(letra) {
-            console.log('Seleccionando letra:', letra);
-            
             if (!letrasDesbloqueadas.includes(letra)) {
                 if (monedas >= 5) {
                     monedas -= 5;
-                    document.getElementById('contadorMonedas').textContent = monedas;
+                    document.getElementById('contadorMonedas').innerHTML = monedas;
                     letrasDesbloqueadas.push(letra);
-                    actualizarSelectorLetras();
-                    actualizarMensaje(`¡Desbloqueaste la letra ${letra}! 🎉`);
-                    hablarClaro(`¡Nueva letra! La letra ${letra}`);
                 } else {
-                    actualizarMensaje(`Necesitas 5 monedas para desbloquear la ${letra}`);
-                    hablarClaro('Sigue practicando para ganar monedas');
+                    document.getElementById('mensajePersonaje').innerHTML = `Necesitas 5 monedas para ${letra}`;
                     return;
                 }
             }
             
             letraActual = letra;
             actualizarSelectorLetras();
-            
-            // Actualizar todo
-            cargarSilabas();
-            cargarPalabras();
-            cargarMiniaturasEscritura();
-            iniciarJuegoFormar();
-            
-            actualizarMensaje(`Letra ${letra}: ¡a practicar!`);
-            hablarClaro(`Vamos a aprender la letra ${letra}`);
+            cargarTodo();
         }
 
         function actualizarSelectorLetras() {
             document.querySelectorAll('.letra-boton').forEach(btn => {
-                const letra = btn.dataset.letra;
+                let letra = btn.getAttribute('data-letra');
                 btn.classList.remove('activa', 'desbloqueada');
-                
-                if (letra === letraActual) {
-                    btn.classList.add('activa');
-                }
-                
-                if (letrasDesbloqueadas.includes(letra)) {
-                    btn.classList.add('desbloqueada');
-                }
+                if (letra === letraActual) btn.classList.add('activa');
+                if (letrasDesbloqueadas.includes(letra)) btn.classList.add('desbloqueada');
             });
         }
 
-        // ============================================
-        // SISTEMA DE NIVELES
-        // ============================================
         function cambiarNivel(nivel) {
             nivelActual = nivel;
-            
             document.querySelectorAll('.nivel').forEach(n => n.classList.remove('activo'));
             document.querySelector(`[data-nivel="${nivel}"]`).classList.add('activo');
-            
-            cargarPalabras();
-            cargarMiniaturasEscritura();
-            iniciarJuegoFormar();
-            
-            const nombres = ['Básico', 'Intermedio', 'Avanzado'];
-            actualizarMensaje(`Nivel ${nombres[nivel-1]} - Letra ${letraActual}`);
-            hablarClaro(`Nivel ${nombres[nivel-1]}`);
+            cargarTodo();
         }
 
-        // ============================================
-        // FUNCIONES DE CARGA
-        // ============================================
+        function cargarTodo() {
+            cargarSilabas();
+            cargarPalabras();
+            cargarMiniaturasEscritura();
+            reiniciarJuegoFormar();
+        }
+
         function cargarSilabas() {
-            const silabasContainer = document.getElementById('silabasGrid');
-            const silabas = ['ma', 'me', 'mi', 'mo', 'mu'];
-            let silabasHtml = '';
-            
-            silabas.forEach(s => {
-                const letraSilaba = s.charAt(0).toUpperCase();
-                const desactivada = letraSilaba !== letraActual && !letrasDesbloqueadas.includes(letraSilaba);
-                silabasHtml += `<div class="silaba-boton ${desactivada ? 'desactivada' : ''}" onclick="aprenderSilaba('${s}')">${s}</div>`;
+            let html = '';
+            ['ma','me','mi','mo','mu'].forEach(s => {
+                html += `<div class="silaba-boton" ontouchstart="aprenderSilaba('${s}')" onclick="aprenderSilaba('${s}')">${s}</div>`;
             });
-            
-            silabasContainer.innerHTML = silabasHtml;
+            document.getElementById('silabasGrid').innerHTML = html;
         }
 
         function cargarPalabras() {
-            const palabrasContainer = document.getElementById('palabrasJuego');
-            const palabras = palabrasPorLetra[letraActual]?.[nivelActual] || palabrasPorLetra['M'][1];
-            
-            let palabrasHtml = '';
-            
+            let palabras = palabrasPorLetra[letraActual]?.[nivelActual] || [];
+            let html = '';
             palabras.forEach(p => {
-                const claseTexto = p.tieneAcento ? 'texto-palabra-con-acento' : 'texto-palabra';
-                
-                palabrasHtml += `
-                    <div class="palabra-juego" onclick="seleccionarPalabra('${p.palabra}')">
+                html += `
+                    <div class="palabra-juego" ontouchstart="seleccionarPalabra('${p.palabra}')" onclick="seleccionarPalabra('${p.palabra}')">
                         <div class="imagen-palabra">${p.imagen}</div>
                         <div>
-                            <div class="${claseTexto}">${p.palabra}</div>
-                            <div class="silabas-mini">
-                                ${p.silabas.map((s, idx) => {
-                                    if (p.tieneAcento && idx === p.acentoEn) {
-                                        return `<span class="silaba-mini-acento">${s}</span>`;
-                                    } else {
-                                        return `<span class="silaba-mini">${s}</span>`;
-                                    }
-                                }).join('')}
-                            </div>
+                            <div class="${p.tieneAcento ? 'texto-palabra-con-acento' : 'texto-palabra'}">${p.palabra}</div>
                         </div>
                     </div>
                 `;
             });
-            
-            palabrasContainer.innerHTML = palabrasHtml;
+            document.getElementById('palabrasJuego').innerHTML = html;
         }
 
         function cargarMiniaturasEscritura() {
-            const container = document.getElementById('miniaturasEscritura');
-            const palabras = palabrasPorLetra[letraActual]?.[nivelActual] || palabrasPorLetra['M'][1];
+            let palabras = palabrasPorLetra[letraActual]?.[nivelActual] || [];
             let html = '';
-            
             palabras.forEach(p => {
                 html += `
-                    <div class="miniatura" onclick="cambiarPalabraEscritura('${p.palabra}', '${p.imagen}')">
+                    <div class="miniatura" ontouchstart="cambiarPalabraEscritura('${p.palabra}', '${p.imagen}')" onclick="cambiarPalabraEscritura('${p.palabra}', '${p.imagen}')">
                         <div class="miniatura-imagen">${p.imagen}</div>
                         <div class="miniatura-texto">${p.palabra}</div>
                     </div>
                 `;
             });
-            
-            container.innerHTML = html;
+            document.getElementById('miniaturasEscritura').innerHTML = html;
         }
 
-        // ============================================
-        // FUNCIONES DE REINICIO (NUEVAS)
-        // ============================================
+        function aprenderSilaba(silaba) {
+            hablar(silaba);
+            document.getElementById('mensajeSilabas').innerHTML = `🔊 ${silaba}`;
+        }
+
+        function seleccionarPalabra(palabra) {
+            hablar(palabra);
+            document.getElementById('mensajePersonaje').innerHTML = palabra;
+        }
+
         function reiniciarSilabas() {
             cargarSilabas();
-            document.getElementById('mensajeSilabas').innerHTML = '¡Listo para aprender!';
-            hablarClaro('Reiniciando sílabas');
+            document.getElementById('mensajeSilabas').innerHTML = 'Toca una sílaba';
         }
 
         function reiniciarPalabras() {
             cargarPalabras();
-            actualizarMensaje('Palabras actualizadas');
         }
 
         function reiniciarJuegoFormar() {
-            iniciarJuegoFormar();
-            hablarClaro('Nueva palabra');
+            let palabras = palabrasPorLetra[letraActual]?.[nivelActual] || [];
+            if (palabras.length === 0) return;
+            
+            let palabra = palabras[Math.floor(Math.random() * palabras.length)];
+            document.getElementById('palabraObjetivo').innerHTML = palabra.palabra;
+            
+            let silabas = [...palabra.silabas];
+            while (silabas.length < 4) {
+                silabas.push(['ma','me','mi','mo','mu'][Math.floor(Math.random() * 5)]);
+            }
+            silabas.sort(() => Math.random() - 0.5);
+            
+            let html = '';
+            silabas.forEach(s => {
+                html += `<div class="silaba-arrastrable" ontouchstart="seleccionarSilabaTactil('${s}')" onclick="seleccionarSilabaTactil('${s}')">${s}</div>`;
+            });
+            document.getElementById('silabasArrastrables').innerHTML = html;
+            
+            document.getElementById('zonaSoltar').innerHTML = '👆 Toca las sílabas';
+            silabasSeleccionadas = [];
+            document.getElementById('resultadoFormar').innerHTML = '';
+        }
+
+        function seleccionarSilabaTactil(silaba) {
+            let palabraObjetivo = document.getElementById('palabraObjetivo').innerHTML;
+            let palabras = palabrasPorLetra[letraActual]?.[nivelActual] || [];
+            let palabraData = palabras.find(p => p.palabra === palabraObjetivo);
+            let numSilabas = palabraData ? palabraData.silabas.length : 2;
+            
+            if (silabasSeleccionadas.length < numSilabas) {
+                silabasSeleccionadas.push(silaba);
+                let zona = document.getElementById('zonaSoltar');
+                if (zona.innerHTML === '👆 Toca las sílabas') zona.innerHTML = '';
+                zona.innerHTML += `<span style="background:#2C8F8F; color:white; padding:8px 15px; border-radius:20px; font-size:1.4em;">${silaba}</span>`;
+            }
+        }
+
+        function agregarAcento(vocal) {
+            if (silabasSeleccionadas.length > 0) {
+                let ultima = silabasSeleccionadas[silabasSeleccionadas.length - 1];
+                let vocales = ['a','e','i','o','u','A','E','I','O','U'];
+                for (let i = ultima.length - 1; i >= 0; i--) {
+                    if (vocales.includes(ultima[i])) {
+                        ultima = ultima.substring(0, i) + vocal + ultima.substring(i + 1);
+                        silabasSeleccionadas[silabasSeleccionadas.length - 1] = ultima;
+                        break;
+                    }
+                }
+                actualizarZonaSoltar();
+            }
+        }
+
+        function actualizarZonaSoltar() {
+            let zona = document.getElementById('zonaSoltar');
+            zona.innerHTML = '';
+            silabasSeleccionadas.forEach(s => {
+                zona.innerHTML += `<span style="background:#2C8F8F; color:white; padding:8px 15px; border-radius:20px; font-size:1.4em;">${s}</span>`;
+            });
         }
 
         function limpiarZonaFormar() {
@@ -1284,10 +1258,43 @@
             document.getElementById('resultadoFormar').innerHTML = '';
         }
 
-        function reiniciarEscritura() {
-            cargarMiniaturasEscritura();
-            cambiarPalabraEscrituraAleatoria();
-            limpiarInputEscritura();
+        function verificarPalabraFormada() {
+            let palabraObjetivo = document.getElementById('palabraObjetivo').innerHTML;
+            let palabraFormada = silabasSeleccionadas.join('');
+            
+            if (palabraFormada === palabraObjetivo) {
+                document.getElementById('resultadoFormar').innerHTML = '🎉 ¡Bien! +2 monedas';
+                hablar('¡Muy bien!');
+                monedas += 2;
+                document.getElementById('contadorMonedas').innerHTML = monedas;
+                setTimeout(reiniciarJuegoFormar, 1500);
+            } else {
+                document.getElementById('resultadoFormar').innerHTML = '🤔 Intenta otra vez';
+            }
+        }
+
+        function cambiarPalabraEscritura(palabra, imagen) {
+            palabraActualEscribir = palabra;
+            document.getElementById('imagenEscritura').innerHTML = imagen;
+            document.getElementById('inputEscritura').value = '';
+            document.getElementById('resultadoEscritura').innerHTML = '';
+            hablar(palabra);
+        }
+
+        function cambiarPalabraEscrituraAleatoria() {
+            let palabras = palabrasPorLetra[letraActual]?.[nivelActual] || [];
+            if (palabras.length > 0) {
+                let p = palabras[Math.floor(Math.random() * palabras.length)];
+                cambiarPalabraEscritura(p.palabra, p.imagen);
+            }
+        }
+
+        function agregarAcentoEscritura(vocal) {
+            let input = document.getElementById('inputEscritura');
+            let pos = input.selectionStart;
+            input.value = input.value.substring(0, pos) + vocal + input.value.substring(pos);
+            input.setSelectionRange(pos + 1, pos + 1);
+            input.focus();
         }
 
         function limpiarInputEscritura() {
@@ -1295,199 +1302,28 @@
             document.getElementById('resultadoEscritura').innerHTML = '';
         }
 
-        // ============================================
-        // RECOMPENSAS
-        // ============================================
-        function ganarMoneda(cantidad = 1) {
-            monedas += cantidad;
-            document.getElementById('contadorMonedas').textContent = monedas;
-            
-            if (monedas >= 3 && !stickersDesbloqueados[0]) desbloquearSticker(0);
-            if (monedas >= 6 && !stickersDesbloqueados[1]) desbloquearSticker(1);
-            if (monedas >= 10 && !stickersDesbloqueados[2]) desbloquearSticker(2);
-            if (monedas >= 15 && !stickersDesbloqueados[3]) desbloquearSticker(3);
-            if (monedas >= 20 && !stickersDesbloqueados[4]) desbloquearSticker(4);
-            
-            actualizarMensaje('¡Ganaste ' + cantidad + ' moneda! 🪙');
+        function reiniciarEscritura() {
+            cambiarPalabraEscrituraAleatoria();
+            limpiarInputEscritura();
         }
 
-        function desbloquearSticker(indice) {
-            stickersDesbloqueados[indice] = true;
-            const stickers = document.querySelectorAll('.sticker');
-            stickers[indice].classList.add('desbloqueado');
-            actualizarMensaje('¡Desbloqueaste un sticker! ' + stickers[indice].textContent);
-            hablarClaro('¡Muy bien! Ganaste un sticker');
-        }
-
-        function actualizarMensaje(mensaje) {
-            document.getElementById('mensajePersonaje').textContent = mensaje;
-        }
-
-        // ============================================
-        // APRENDER
-        // ============================================
-        function aprenderSilaba(silaba) {
-            const letraSilaba = silaba.charAt(0).toUpperCase();
-            if (letraSilaba !== letraActual && !letrasDesbloqueadas.includes(letraSilaba)) {
-                actualizarMensaje(`Primero desbloquea la letra ${letraSilaba}`);
-                return;
-            }
-            
-            hablarClaro(silaba);
-            document.getElementById('mensajeSilabas').innerHTML = `🔊 ${silaba}`;
-            if (Math.random() < 0.3) ganarMoneda(1);
-        }
-
-        function seleccionarPalabra(palabra) {
-            palabraActualGrabar = palabra;
-            hablarClaro(palabra);
-            actualizarMensaje(`Palabra: ${palabra}`);
-            document.getElementById('mensajeSilabas').innerHTML = `🔊 ${palabra}`;
-        }
-
-        // ============================================
-        // JUEGO DE FORMAR
-        // ============================================
-        function iniciarJuegoFormar() {
-            const palabras = palabrasPorLetra[letraActual]?.[nivelActual] || palabrasPorLetra['M'][1];
-            const palabraRandom = palabras[Math.floor(Math.random() * palabras.length)];
-            
-            document.getElementById('palabraObjetivo').textContent = palabraRandom.palabra;
-            
-            let silabasJuego = [];
-            palabraRandom.silabas.forEach(s => silabasJuego.push(s));
-            
-            const silabasExtras = ['ma', 'me', 'mi', 'mo', 'mu', 'pa', 'pe', 'la', 'sa', 'ta'];
-            while (silabasJuego.length < 4) {
-                const extra = silabasExtras[Math.floor(Math.random() * silabasExtras.length)];
-                if (!silabasJuego.includes(extra)) silabasJuego.push(extra);
-            }
-            
-            silabasJuego.sort(() => Math.random() - 0.5);
-            
-            let html = '';
-            silabasJuego.forEach(silaba => {
-                const tieneAcento = /[ÁÉÍÓÚáéíóú]/.test(silaba);
-                html += `<div class="silaba-arrastrable ${tieneAcento ? 'acento' : ''}" onclick="seleccionarSilabaTactil('${silaba}')">${silaba}</div>`;
-            });
-            
-            document.getElementById('silabasArrastrables').innerHTML = html;
-            document.getElementById('zonaSoltar').innerHTML = '👆 Toca las sílabas';
-            silabasSeleccionadas = [];
-            document.getElementById('resultadoFormar').innerHTML = '';
-        }
-
-        function seleccionarSilabaTactil(silaba) {
-            const palabraObjetivo = document.getElementById('palabraObjetivo').textContent;
-            const palabras = palabrasPorLetra[letraActual]?.[nivelActual] || palabrasPorLetra['M'][1];
-            const palabraData = palabras.find(p => p.palabra === palabraObjetivo);
-            const numSilabas = palabraData ? palabraData.silabas.length : 2;
-            
-            if (silabasSeleccionadas.length < numSilabas) {
-                silabasSeleccionadas.push(silaba);
-                const zona = document.getElementById('zonaSoltar');
-                
-                if (zona.innerHTML === '👆 Toca las sílabas') zona.innerHTML = '';
-                
-                const tieneAcento = /[ÁÉÍÓÚáéíóú]/.test(silaba);
-                const color = tieneAcento ? '#FFB347' : '#2C8F8F';
-                
-                zona.innerHTML += `<span style="background: ${color}; color: white; padding: 12px 20px; border-radius: 30px; font-size: 1.6em; margin: 0 5px; border: 3px solid white;">${silaba}</span>`;
-            }
-        }
-
-        function agregarAcento(vocalAcentuada) {
-            if (silabasSeleccionadas.length > 0) {
-                let ultimaSilaba = silabasSeleccionadas[silabasSeleccionadas.length - 1];
-                const vocales = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
-                
-                for (let i = ultimaSilaba.length - 1; i >= 0; i--) {
-                    if (vocales.includes(ultimaSilaba[i])) {
-                        ultimaSilaba = ultimaSilaba.substring(0, i) + vocalAcentuada + ultimaSilaba.substring(i + 1);
-                        silabasSeleccionadas[silabasSeleccionadas.length - 1] = ultimaSilaba;
-                        break;
-                    }
-                }
-                
-                actualizarZonaSoltar();
-            }
-        }
-
-        function actualizarZonaSoltar() {
-            const zona = document.getElementById('zonaSoltar');
-            zona.innerHTML = '';
-            
-            silabasSeleccionadas.forEach(silaba => {
-                const tieneAcento = /[ÁÉÍÓÚáéíóú]/.test(silaba);
-                const color = tieneAcento ? '#FFB347' : '#2C8F8F';
-                zona.innerHTML += `<span style="background: ${color}; color: white; padding: 12px 20px; border-radius: 30px; font-size: 1.6em; margin: 0 5px; border: 3px solid white;">${silaba}</span>`;
-            });
-        }
-
-        function verificarPalabraFormada() {
-            const palabraObjetivo = document.getElementById('palabraObjetivo').textContent;
-            const palabraFormada = silabasSeleccionadas.join('');
-            
-            const palabras = palabrasPorLetra[letraActual]?.[nivelActual] || palabrasPorLetra['M'][1];
-            const palabraData = palabras.find(p => compararConTildes(p.palabra, palabraFormada));
-            
-            if (palabraFormada === palabraObjetivo) {
-                document.getElementById('resultadoFormar').innerHTML = '<div class="mensaje-exito">🎉 ¡Excelente! +2 monedas</div>';
-                hablarClaro('¡Muy bien! ' + palabraFormada);
-                ganarMoneda(2);
-                setTimeout(iniciarJuegoFormar, 1500);
-            } else if (palabraData && compararConTildes(palabraData.palabra, palabraFormada)) {
-                document.getElementById('resultadoFormar').innerHTML = '<div class="mensaje-juego">👍 ¡Bien! Pero falta la tilde en ' + palabraObjetivo + '</div>';
-                hablarClaro('Casi, recuerda la tilde');
-            } else {
-                document.getElementById('resultadoFormar').innerHTML = '<div class="mensaje-juego">🤔 Intenta otra vez</div>';
-                hablarClaro('Casi, intenta de nuevo');
-            }
-        }
-
-        // ============================================
-        // ESCRITURA
-        // ============================================
-        function agregarAcentoEscritura(vocalAcentuada) {
-            const input = document.getElementById('inputEscritura');
-            const posicion = input.selectionStart;
-            const valorActual = input.value;
-            
-            const nuevoValor = valorActual.substring(0, posicion) + vocalAcentuada + valorActual.substring(posicion);
-            input.value = nuevoValor;
-            
-            input.setSelectionRange(posicion + 1, posicion + 1);
-            input.focus();
-        }
-
-        function cambiarPalabraEscritura(palabra, imagen) {
-            palabraActualEscribir = palabra;
-            document.getElementById('imagenEscritura').textContent = imagen;
-            document.getElementById('inputEscritura').value = '';
-            document.getElementById('resultadoEscritura').innerHTML = '';
-            hablarClaro(palabra);
-        }
-
-        function cambiarPalabraEscrituraAleatoria() {
-            const palabras = palabrasPorLetra[letraActual]?.[nivelActual] || palabrasPorLetra['M'][1];
-            const randomIndex = Math.floor(Math.random() * palabras.length);
-            const p = palabras[randomIndex];
-            cambiarPalabraEscritura(p.palabra, p.imagen);
+        function normalizarTexto(t) {
+            return t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
         }
 
         function verificarEscritura() {
-            const escrito = document.getElementById('inputEscritura').value.trim();
+            let escrito = document.getElementById('inputEscritura').value.trim();
             
             if (escrito === palabraActualEscribir) {
-                document.getElementById('resultadoEscritura').innerHTML = '<div class="mensaje-exito">⭐ ¡Perfecto! +3 monedas ⭐</div>';
-                hablarClaro('¡Excelente! Escribiste ' + palabraActualEscribir);
-                ganarMoneda(3);
-            } else if (normalizarTexto(escrito).toLowerCase() === normalizarTexto(palabraActualEscribir).toLowerCase()) {
-                document.getElementById('resultadoEscritura').innerHTML = '<div class="mensaje-juego">👍 ¡Bien! Pero revisa mayúsculas o tildes: ' + palabraActualEscribir + '</div>';
-                hablarClaro('Casi, revisa las mayúsculas y tildes');
+                document.getElementById('resultadoEscritura').innerHTML = '⭐ ¡Perfecto! +3 monedas';
+                hablar('¡Excelente!');
+                monedas += 3;
+                document.getElementById('contadorMonedas').innerHTML = monedas;
+            } else if (normalizarTexto(escrito) === normalizarTexto(palabraActualEscribir)) {
+                document.getElementById('resultadoEscritura').innerHTML = '👍 Falta la tilde';
+                hablar('Revisa la tilde');
             } else {
-                document.getElementById('resultadoEscritura').innerHTML = '<div class="mensaje-juego">✏️ La palabra es ' + palabraActualEscribir + '</div>';
-                hablarClaro('La palabra es ' + palabraActualEscribir);
+                document.getElementById('resultadoEscritura').innerHTML = '✏️ Sigue practicando';
             }
         }
 
@@ -1495,23 +1331,13 @@
         // INICIALIZAR
         // ============================================
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Aplicación iniciada');
+            cargarTodo();
+            document.getElementById('contadorMonedas').innerHTML = monedas;
             
-            document.getElementById('contadorMonedas').textContent = monedas;
-            
-            cargarSilabas();
-            cargarPalabras();
-            cargarMiniaturasEscritura();
-            iniciarJuegoFormar();
-            
-            setTimeout(() => {
-                hablarClaro('¡Hola! Elige una letra para aprender');
-                actualizarMensaje('¡Hola! Soy M, tu profesor 🐵');
-            }, 500);
-            
-            document.querySelectorAll('button, .silaba-boton, .palabra-juego, .silaba-arrastrable, .miniatura, .letra-boton').forEach(el => {
-                el.addEventListener('touchstart', (e) => e.preventDefault());
-            });
+            // Precargar voces
+            if (window.speechSynthesis) {
+                window.speechSynthesis.getVoices();
+            }
         });
     </script>
 </body>
